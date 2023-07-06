@@ -9,6 +9,7 @@ final class MainView: UIView {
         return view
     }()
     
+    
     private var items: [String] = []
 
     init() {
@@ -16,6 +17,7 @@ final class MainView: UIView {
         super.init(frame: .zero)
 
         self.setupViews()
+        tableView.dataSource = self
     }
 
     required init?(coder: NSCoder) {
@@ -57,4 +59,18 @@ private extension MainView {
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+}
+
+extension MainView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = items[indexPath.row]
+        return cell
+    }
+    
+    
 }
